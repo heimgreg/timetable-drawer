@@ -24,8 +24,10 @@ i.e. these programs should be installed on your system.
    - Datei-Format: Download als CSV
    - Zeichensatz:  UTF-8
 2. Run the script by typing the following command in a terminal
+
    ```
    python timetableDrawer.py -c exportedfromklips.csv [-o output.pdf]
    ```
+   
    where `exportedfromklips.csv` needs to be replaced by the filename of the exported csv file.
    `output.pdf` or any other filename can be provided to specify the name (and path) of the output pdf.
