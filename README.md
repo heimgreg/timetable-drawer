@@ -9,8 +9,8 @@ this script was created to transform the data that can be exported from
 KLIPS 2.0 into a printable format.
 
 ## System requirements
-The code is developed and tested on a Ubuntu systems and Python 2.7.6.
-It will probably also work on other Linux systems or with other Python versions.
+The code is developed and tested on an Ubuntu system with Python 2.7.6.
+It might also work on other Linux systems and/or with other Python versions.
 
 For the pdf file creation two external programs are called:
 - `rsvg-convert` and
