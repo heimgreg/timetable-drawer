@@ -285,6 +285,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Stundenplan erstellen</string>
         </property>
@@ -311,6 +314,8 @@
     <addaction name="separator"/>
     <addaction name="actionEingabedatei_w_hlen"/>
     <addaction name="actionAusgabedatei_w_hlen"/>
+    <addaction name="separator"/>
+    <addaction name="actionStundenplan_erstellen"/>
     <addaction name="separator"/>
     <addaction name="actionBeenden"/>
    </widget>
@@ -366,6 +371,14 @@
   <action name="actionErweiterte_Einstellungen">
    <property name="text">
     <string>Erweiterte Einstellungen</string>
+   </property>
+  </action>
+  <action name="actionStundenplan_erstellen">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Stundenplan erstellen</string>
    </property>
   </action>
  </widget>

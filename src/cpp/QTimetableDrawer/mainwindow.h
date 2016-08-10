@@ -4,21 +4,21 @@
 #include <QMainWindow>
 
 namespace Ui {
-class MainWindow;
+  class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
+  public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void on_checkBox_toggled(bool checked);
+    private slots:
+      void on_checkBox_toggled(bool checked);
 
-private:
+  private:
     Ui::MainWindow *ui;
 };
 
