@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>551</width>
+    <height>422</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QTimetableDrawer</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Dateien</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Eingabedatei (csv)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Datei auswählen</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Ausgabedatei (pdf)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_2"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Datei auswählen</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Farben</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Farbige Hintergründe</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="cornerButtonEnabled">
+          <bool>false</bool>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Neue Zeile</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>Fach/Stichwort</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Farbe</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Stundenplan erstellen</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>551</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+    <addaction name="actionNeu"/>
+    <addaction name="separator"/>
+    <addaction name="actionEingabedatei_w_hlen"/>
+    <addaction name="actionAusgabedatei_w_hlen"/>
+    <addaction name="separator"/>
+    <addaction name="actionBeenden"/>
+   </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="title">
+     <string>Hilfe</string>
+    </property>
+    <addaction name="action_ber_QTimetableDrawer"/>
+    <addaction name="separator"/>
+    <addaction name="actionHilfe"/>
+   </widget>
+   <widget class="QMenu" name="menuExtras">
+    <property name="title">
+     <string>Extras</string>
+    </property>
+    <addaction name="actionErweiterte_Einstellungen"/>
+   </widget>
+   <addaction name="menuDatei"/>
+   <addaction name="menuExtras"/>
+   <addaction name="menuHilfe"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNeu">
+   <property name="text">
+    <string>Neu</string>
+   </property>
+  </action>
+  <action name="actionEingabedatei_w_hlen">
+   <property name="text">
+    <string>Eingabedatei wählen</string>
+   </property>
+  </action>
+  <action name="actionAusgabedatei_w_hlen">
+   <property name="text">
+    <string>Ausgabedatei wählen</string>
+   </property>
+  </action>
+  <action name="actionBeenden">
+   <property name="text">
+    <string>Beenden</string>
+   </property>
+  </action>
+  <action name="action_ber_QTimetableDrawer">
+   <property name="text">
+    <string>Über QTimetableDrawer</string>
+   </property>
+  </action>
+  <action name="actionHilfe">
+   <property name="text">
+    <string>Hilfe</string>
+   </property>
+  </action>
+  <action name="actionErweiterte_Einstellungen">
+   <property name="text">
+    <string>Erweiterte Einstellungen</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
