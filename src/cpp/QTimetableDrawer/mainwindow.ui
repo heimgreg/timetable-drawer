@@ -16,40 +16,40 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="QGroupBox" name="groupBox_2">
+     <widget class="QGroupBox" name="fileGroupBox">
       <property name="title">
        <string>Dateien</string>
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="inputFileLabel">
          <property name="text">
           <string>Eingabedatei (csv)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="QLineEdit" name="inputFileLineEdit"/>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="inputFileSelectionButton">
          <property name="text">
           <string>Datei auswählen</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="outputFileLabel">
          <property name="text">
           <string>Ausgabedatei (pdf)</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+        <widget class="QLineEdit" name="outputFileLineEdit"/>
        </item>
        <item row="1" column="2">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="outputFileSelectionButton">
          <property name="text">
           <string>Datei auswählen</string>
          </property>
@@ -59,13 +59,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="colorGroupBox">
       <property name="title">
        <string>Farben</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="colorCheckBox">
          <property name="text">
           <string>Farbige Hintergründe</string>
          </property>
@@ -75,7 +75,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableWidget" name="colorTable">
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -271,6 +271,16 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QCheckBox" name="singleWeekCheckBox">
+        <property name="text">
+         <string>Einzelner Stundenplan für jede Woche</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -284,7 +294,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="createButton">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -306,74 +316,74 @@
      <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuDatei">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Datei</string>
     </property>
-    <addaction name="actionNeu"/>
+    <addaction name="actionNew"/>
     <addaction name="separator"/>
-    <addaction name="actionEingabedatei_w_hlen"/>
-    <addaction name="actionAusgabedatei_w_hlen"/>
+    <addaction name="actionChooseInputFile"/>
+    <addaction name="actionChooseOutputFile"/>
     <addaction name="separator"/>
-    <addaction name="actionStundenplan_erstellen"/>
+    <addaction name="actionCreateTimetable"/>
     <addaction name="separator"/>
-    <addaction name="actionBeenden"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHilfe">
     <property name="title">
      <string>Hilfe</string>
     </property>
-    <addaction name="action_ber_QTimetableDrawer"/>
+    <addaction name="actionAbout"/>
     <addaction name="separator"/>
-    <addaction name="actionHilfe"/>
+    <addaction name="actionHelp"/>
    </widget>
    <widget class="QMenu" name="menuExtras">
     <property name="title">
      <string>Extras</string>
     </property>
-    <addaction name="actionErweiterte_Einstellungen"/>
+    <addaction name="actionAdvancedSettings"/>
    </widget>
-   <addaction name="menuDatei"/>
+   <addaction name="menuFile"/>
    <addaction name="menuExtras"/>
    <addaction name="menuHilfe"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionNeu">
+  <action name="actionNew">
    <property name="text">
     <string>Neu</string>
    </property>
   </action>
-  <action name="actionEingabedatei_w_hlen">
+  <action name="actionChooseInputFile">
    <property name="text">
     <string>Eingabedatei wählen</string>
    </property>
   </action>
-  <action name="actionAusgabedatei_w_hlen">
+  <action name="actionChooseOutputFile">
    <property name="text">
     <string>Ausgabedatei wählen</string>
    </property>
   </action>
-  <action name="actionBeenden">
+  <action name="actionQuit">
    <property name="text">
     <string>Beenden</string>
    </property>
   </action>
-  <action name="action_ber_QTimetableDrawer">
+  <action name="actionAbout">
    <property name="text">
     <string>Über QTimetableDrawer</string>
    </property>
   </action>
-  <action name="actionHilfe">
+  <action name="actionHelp">
    <property name="text">
     <string>Hilfe</string>
    </property>
   </action>
-  <action name="actionErweiterte_Einstellungen">
+  <action name="actionAdvancedSettings">
    <property name="text">
     <string>Erweiterte Einstellungen</string>
    </property>
   </action>
-  <action name="actionStundenplan_erstellen">
+  <action name="actionCreateTimetable">
    <property name="enabled">
     <bool>false</bool>
    </property>
