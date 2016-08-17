@@ -8,6 +8,9 @@ an option to export the personal timetables for the whole semester,
 this script was created to transform the data that can be exported from
 KLIPS 2.0 into a printable format.
 
+The first version of the timetable drawer is a simple, non-userfrienly python script as described below.
+*Currently, a new version based on c++ and qt is being developed to offer a user-friendly platform-independent tool.*
+
 ## System requirements
 The code is developed and tested on an Ubuntu system with Python 2.7.6.
 It might also work on other Linux systems and/or with other Python versions.
