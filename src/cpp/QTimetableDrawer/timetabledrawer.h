@@ -38,6 +38,12 @@ private:
   std::string inputfile;
   std::string outputfile;
   std::vector<std::pair<std::string,QColor> > colors;
+  std::vector<Event> events;
+  bool useColors;
+  QString errorMessage;
+
+  bool readEventsFromCSVFile();
+  bool writeEventsToPDFFile();
 };
 
 #endif // TIMETABLEDRAWER_H
