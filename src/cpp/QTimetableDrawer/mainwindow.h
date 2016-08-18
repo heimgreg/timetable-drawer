@@ -16,6 +16,10 @@ public:
   ~MainWindow();
 
 private slots:
+  void on_error(QString err);
+
+  void on_creationSuccessful();
+
   void on_colorCheckBox_toggled(bool checked);
 
   void on_inputFileSelectionButton_clicked();
@@ -40,6 +44,10 @@ private slots:
 
   void on_actionQuit_triggered();
 
+  void on_createButton_clicked();
+
+  void on_actionCreateTimetable_triggered();
+
 private:
     Ui::MainWindow *ui;
     void chooseInputFile();
@@ -48,6 +56,7 @@ private:
     void enableCreationButtons();
     void disableCreationButtons();
     void chooseCellColor(int row, int column);
+    void startCreation();
 };
 
 #endif // MAINWINDOW_H

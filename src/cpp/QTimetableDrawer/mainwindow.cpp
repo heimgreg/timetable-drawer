@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "timetabledrawer.h"
 #include "qfiledialog.h"
 #include "qcolordialog.h"
+#include "qthread.h"
+#include "qmessagebox.h"
 #include <string>
 #include <iostream>
 
@@ -13,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->colorTable->setColumnWidth(0,200);
   for(int i = 0; i < ui->colorTable->rowCount(); ++i)
   {
+    ui->colorTable->setItem(i,0,new QTableWidgetItem());
     ui->colorTable->setItem(i,1,new QTableWidgetItem());
     ui->colorTable->item(i,1)->setFlags(Qt::ItemIsEnabled);
   }
@@ -77,6 +81,16 @@ void MainWindow::chooseCellColor(int row, int column)
   }
 }
 
+void MainWindow::on_error(QString err)
+{
+  QMessageBox errDialog;
+  errDialog.critical(this,"Fehler",err);
+}
+
+void MainWindow::on_creationSuccessful()
+{
+  ui->statusBar->showMessage("Stundenplan wurde erfolgreich erstellt.");
+}
 
 void MainWindow::on_colorCheckBox_toggled(bool checked)
 {
@@ -194,4 +208,53 @@ void MainWindow::on_actionChooseOutputFile_triggered()
 void MainWindow::on_actionQuit_triggered()
 {
   QApplication::quit();
+}
+
+void MainWindow::startCreation()
+{
+  ui->statusBar->clearMessage();
+
+  QThread* thread = new QThread();
+  TimetableDrawer* worker = new TimetableDrawer();
+
+  worker->setInputfile(ui->inputFileLineEdit->text().toStdString());
+  worker->setOutputfile(ui->outputFileLineEdit->text().toStdString());
+  if(ui->colorCheckBox->isChecked())
+  {
+    std::vector<std::pair<std::string,QColor> > colors;
+    for(int i = 0; i < ui->colorTable->rowCount(); ++i)
+    {
+      if(ui->colorTable->item(i,0)->text() != "")
+      {
+        std::pair<std::string,QColor> line(ui->colorTable->item(i,0)->text().toStdString(),ui->colorTable->item(i,1)->background().color());
+        colors.push_back(line);
+      }
+    }
+    worker->setColors(colors);
+  }
+
+  worker->moveToThread(thread);
+
+  connect(thread, SIGNAL(started()), worker, SLOT(process()));
+
+  connect(worker, SIGNAL(error(QString)), this, SLOT(on_error(QString)));
+  connect(worker, SIGNAL(error(QString)), thread, SLOT(quit()));
+  connect(worker, SIGNAL(error(QString)), worker, SLOT(deleteLater()));
+
+  connect(worker, SIGNAL(finished()), this, SLOT(on_creationSuccessful()));
+  connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+  connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+
+  connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+  thread->start();
+}
+
+void MainWindow::on_createButton_clicked()
+{
+  startCreation();
+}
+
+void MainWindow::on_actionCreateTimetable_triggered()
+{
+  startCreation();
 }

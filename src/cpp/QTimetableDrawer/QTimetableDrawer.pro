@@ -14,8 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    definitions.cpp
+    timetabledrawer.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    timetabledrawer.h
 
 FORMS    += mainwindow.ui
