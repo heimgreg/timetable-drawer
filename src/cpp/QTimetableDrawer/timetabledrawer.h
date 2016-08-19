@@ -5,16 +5,9 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include <ctime>
+#include "event.h"
 #include "qcolor.h"
-
-struct Event
-{
-  std::string name;
-  tm datetime;
-  int duration; // in minutes
-  std::string room;
-};
+#include "hpdf_types.h"
 
 class TimetableDrawer : public QObject
 {

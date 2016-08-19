@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include "hpdf.h"
+#include "pdfwriter.h"
 
 TimetableDrawer::TimetableDrawer()
 {
@@ -127,6 +129,11 @@ bool TimetableDrawer::writeEventsToPDFFile()
     errorMessage = "Keine Ausgabedatei angegeben.";
     return false;
   }
+
+  PDFWriter writer;
+  writer.drawTimetableFromEvents(events);
+  writer.saveToFile(outputfile);
+
   return true;
 }
 

@@ -14,11 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    timetabledrawer.cpp
+    timetabledrawer.cpp \
+    pdfwriter.cpp
 
 HEADERS  += mainwindow.h \
-    timetabledrawer.h
+    timetabledrawer.h \
+    pdfwriter.h \
+    event.h
 
 FORMS    += mainwindow.ui
 
 CONFIG   += c++11
+
+LIBS     += -lhpdf
