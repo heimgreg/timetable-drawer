@@ -17,7 +17,7 @@ public:
   // Setter
   // ...
 
-  bool drawTimetableGrid(HPDF_Page &page, int weeknumber);
+  bool drawTimetableGrid(HPDF_Page &page, int year, int weeknumber);
   bool drawTimetableFromEvents(std::vector<Event> events, int weeknumber);
   bool saveToFile(std::string filename);
 
@@ -40,6 +40,10 @@ private:
   HPDF_PageSizes pageSize;
   HPDF_PageDirection pageOrientation;
   HPDF_Font documentFont;
+
+  std::vector<std::string> weekdays = {"Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"};
+
+  void getDateStringFromWeeknumberAndWeekday(int year, int weeknumber, int weekday, char* date);
 };
 
 #endif // PDFWRITER_H

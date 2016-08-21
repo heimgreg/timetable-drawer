@@ -131,7 +131,7 @@ bool TimetableDrawer::writeEventsToPDFFile()
   }
 
   PDFWriter writer;
-  writer.drawTimetableFromEvents(events,0);
+  writer.drawTimetableFromEvents(events,42);
   writer.saveToFile(outputfile);
 
   return true;
