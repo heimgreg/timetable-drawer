@@ -32,11 +32,14 @@ private:
   std::string outputfile;
   std::vector<std::pair<std::string,QColor> > colors;
   std::vector<Event> events;
+  std::vector<std::vector<Event> > eventsSortedByWeek;
   bool useColors;
   QString errorMessage;
 
   bool readEventsFromCSVFile();
   bool writeEventsToPDFFile();
+  bool sortEventsByWeek();
+  int getWeeknumberFromDatetime(tm datetime);
 };
 
 #endif // TIMETABLEDRAWER_H

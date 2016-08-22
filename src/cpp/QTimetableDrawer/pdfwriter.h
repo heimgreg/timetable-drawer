@@ -17,8 +17,7 @@ public:
   // Setter
   // ...
 
-  bool drawTimetableGrid(HPDF_Page &page, int year, int weeknumber);
-  bool drawTimetableFromEvents(std::vector<Event> events, int weeknumber);
+  bool drawTimetableFromEvents(std::vector<Event> events, int year, int weeknumber);
   bool saveToFile(std::string filename);
 
 private:
@@ -29,6 +28,8 @@ private:
   HPDF_REAL dotsHeaderRowHeight;
   HPDF_REAL dotsMinPageMarginHorizontal;
   HPDF_REAL dotsMinPageMarginVertical;
+  HPDF_REAL dotsPageMarginHorizontal;
+  HPDF_REAL dotsPageMarginVertical;
 
   HPDF_REAL dotsTimetableSizeX;
   HPDF_REAL dotsTimetableSizeY;
@@ -43,6 +44,8 @@ private:
 
   std::vector<std::string> weekdays = {"Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"};
 
+  bool drawTimetableGrid(HPDF_Page &page, int year, int weeknumber);
+  bool drawEvent(HPDF_Page &page, Event ev);
   void getDateStringFromWeeknumberAndWeekday(int year, int weeknumber, int weekday, char* date);
 };
 

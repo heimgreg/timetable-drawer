@@ -131,10 +131,58 @@ bool TimetableDrawer::writeEventsToPDFFile()
   }
 
   PDFWriter writer;
-  writer.drawTimetableFromEvents(events,42);
+
+  if(!sortEventsByWeek())
+  {
+    return false;
+  }
+
+  for(unsigned i = 0; i < eventsSortedByWeek.size(); ++i)
+  {
+    writer.drawTimetableFromEvents(eventsSortedByWeek[i], eventsSortedByWeek[i][0].datetime.tm_year + 1900, getWeeknumberFromDatetime(eventsSortedByWeek[i][0].datetime));
+  }
+
+  //writer.drawTimetableFromEvents(events,42);
   writer.saveToFile(outputfile);
 
   return true;
+}
+
+bool TimetableDrawer::sortEventsByWeek()
+{
+  if(events.size() == 0)
+  {
+    errorMessage = "Es sind keine Veranstaltungen vorhanden.";
+    return false;
+  }
+  int lastWeeknumber = getWeeknumberFromDatetime(events[0].datetime);
+  int lastYear = events[0].datetime.tm_year;
+
+  std::vector<Event> weekEvents;
+
+  Event ev;
+  for(unsigned i = 0; i < events.size(); ++i)
+  {
+    ev = events[i];
+    if((getWeeknumberFromDatetime(ev.datetime) > lastWeeknumber && ev.datetime.tm_year == lastYear) || ev.datetime.tm_year > lastYear)
+    {
+      lastWeeknumber = getWeeknumberFromDatetime(ev.datetime);
+      lastYear = ev.datetime.tm_year;
+      eventsSortedByWeek.push_back(weekEvents);
+      weekEvents.clear();
+    }
+    weekEvents.push_back(ev);
+  }
+  eventsSortedByWeek.push_back(weekEvents);
+
+  return true;
+}
+
+int TimetableDrawer::getWeeknumberFromDatetime(tm datetime)
+{
+  char weeknumberString[3];
+  strftime(weeknumberString,3,"%W",&datetime);
+  return std::atoi(weeknumberString);
 }
 
 void TimetableDrawer::process()

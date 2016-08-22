@@ -47,8 +47,8 @@ bool PDFWriter::drawTimetableGrid(HPDF_Page &page, int year, int weeknumber)
   HPDF_REAL pageWidth = HPDF_Page_GetWidth(page);
   HPDF_REAL pageHeight = HPDF_Page_GetHeight(page);
 
-  HPDF_REAL dotsPageMarginHorizontal = std::max((double)dotsMinPageMarginHorizontal, 0.5 * (pageWidth - dotsTimetableSizeX));
-  HPDF_REAL dotsPageMarginVertical = std::max((double)dotsMinPageMarginVertical, 0.5 * (pageHeight - dotsTimetableSizeY));
+  dotsPageMarginHorizontal = std::max((double)dotsMinPageMarginHorizontal, 0.5 * (pageWidth - dotsTimetableSizeX));
+  dotsPageMarginVertical = std::max((double)dotsMinPageMarginVertical, 0.5 * (pageHeight - dotsTimetableSizeY));
 
   // Weeknumber in the top left corner
   if(weeknumber > 0)
@@ -79,9 +79,13 @@ bool PDFWriter::drawTimetableGrid(HPDF_Page &page, int year, int weeknumber)
     {
       HPDF_Page_BeginText(page);
       HPDF_REAL textSize = 14;
-      char dateString[12];
-      getDateStringFromWeeknumberAndWeekday(year,weeknumber,i+1,dateString);
-      std::string headerText = weekdays[i+1] + "\n" + std::string(dateString);
+      std::string headerText = weekdays[i+1];
+      if(weeknumber > 0)
+      {
+        char dateString[12];
+        getDateStringFromWeeknumberAndWeekday(year,weeknumber,i+1,dateString);
+        headerText += "\n" + std::string(dateString);
+      }
       HPDF_Page_SetFontAndSize(page,documentFont,textSize);
       HPDF_Page_TextRect(page,dotsPageMarginHorizontal + dotsTimeColumnWidth + i * dotsDayWidth,
                          pageHeight - dotsPageMarginVertical,
@@ -125,12 +129,53 @@ bool PDFWriter::drawTimetableGrid(HPDF_Page &page, int year, int weeknumber)
   return true;
 }
 
-bool PDFWriter::drawTimetableFromEvents(std::vector<Event> events, int weeknumber)
+bool PDFWriter::drawEvent(HPDF_Page& page, Event ev)
+{
+  HPDF_REAL x = dotsPageMarginHorizontal + dotsTimeColumnWidth + (ev.datetime.tm_wday-1) * dotsDayWidth;
+  HPDF_REAL y = HPDF_Page_GetHeight(page) - dotsPageMarginVertical - dotsHeaderRowHeight - (ev.datetime.tm_hour + 1.0/60.0 * (ev.datetime.tm_min + ev.duration) - startTime) * dotsPerHour;
+
+  // TODO: Choose color from table here
+
+  HPDF_Page_SetRGBFill(page,0.9,0.9,0.9);
+  HPDF_Page_Rectangle(page,x,y,dotsDayWidth,ev.duration*dotsPerHour/60.0);
+  HPDF_Page_FillStroke(page);
+
+  int hour1 = ev.datetime.tm_hour;
+  int min1 = ev.datetime.tm_min;
+  int hour2 = hour1 + (int)(ev.duration / 60.0);
+  int min2 = (min1 + ev.duration % 60) % 60;
+  std::string evStartTime = std::to_string(hour1) + ":" + std::to_string(min1);
+  if(min1 == 0)
+    evStartTime += "0";
+  std::string evEndTime = std::to_string(hour2) + ":" + std::to_string(min2);
+  if(min2 == 0)
+    evEndTime += "0";
+  std::string evStr = ev.name + "\n" + evStartTime + " - " + evEndTime + "\n" + ev.room;
+
+  HPDF_Page_BeginText(page);
+  HPDF_Page_SetFontAndSize(page,documentFont,9);
+  HPDF_Page_SetTextLeading(page,11);
+  HPDF_Page_SetRGBFill(page,0,0,0);
+  HPDF_Page_TextRect(page,x,y+ev.duration*dotsPerHour/60.0,x+dotsDayWidth,y,evStr.c_str(),HPDF_TALIGN_LEFT,NULL);
+  HPDF_Page_EndText(page);
+
+  return true;
+}
+
+bool PDFWriter::drawTimetableFromEvents(std::vector<Event> events, int year, int weeknumber)
 {
   HPDF_Page page = HPDF_AddPage(doc);
   HPDF_Page_SetSize(page,pageSize,pageOrientation);
 
-  drawTimetableGrid(page,2016,weeknumber);
+  drawTimetableGrid(page,year,weeknumber);
+
+  for(unsigned i = 0; i < events.size(); ++i)
+  {
+    if(!drawEvent(page,events[i]))
+    {
+      return false;
+    }
+  }
 
   return true;
 }
