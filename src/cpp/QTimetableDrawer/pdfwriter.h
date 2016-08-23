@@ -17,6 +17,7 @@ public:
   // Setter
   // ...
 
+  void setColorCodes(std::vector<ColorCode> cc);
   bool drawTimetableFromEvents(std::vector<Event> events, int year, int weeknumber);
   bool saveToFile(std::string filename);
 
@@ -41,6 +42,8 @@ private:
   HPDF_PageSizes pageSize;
   HPDF_PageDirection pageOrientation;
   HPDF_Font documentFont;
+
+  std::vector<ColorCode> colorCodes;
 
   std::vector<std::string> weekdays = {"Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"};
 

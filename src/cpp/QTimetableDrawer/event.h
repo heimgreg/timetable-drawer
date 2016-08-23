@@ -12,5 +12,13 @@ struct Event
   std::string room;
 };
 
+struct ColorCode
+{
+  std::string keyword;
+  float r;
+  float g;
+  float b;
+};
+
 #endif // EVENT_H
 

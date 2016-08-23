@@ -30,7 +30,7 @@ public slots:
 private:
   std::string inputfile;
   std::string outputfile;
-  std::vector<std::pair<std::string,QColor> > colors;
+  std::vector<ColorCode> colors;
   std::vector<Event> events;
   std::vector<std::vector<Event> > eventsSortedByWeek;
   bool useColors;

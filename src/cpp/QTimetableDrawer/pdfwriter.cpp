@@ -34,6 +34,11 @@ PDFWriter::~PDFWriter()
   HPDF_Free(doc);
 }
 
+void PDFWriter::setColorCodes(std::vector<ColorCode> cc)
+{
+  colorCodes = cc;
+}
+
 void PDFWriter::getDateStringFromWeeknumberAndWeekday(int year, int weeknumber, int weekday, char* date)
 {
   std::string knownDates = std::to_string(year) + " " + std::to_string(weeknumber) + " " + std::to_string(weekday);
@@ -134,9 +139,21 @@ bool PDFWriter::drawEvent(HPDF_Page& page, Event ev)
   HPDF_REAL x = dotsPageMarginHorizontal + dotsTimeColumnWidth + (ev.datetime.tm_wday-1) * dotsDayWidth;
   HPDF_REAL y = HPDF_Page_GetHeight(page) - dotsPageMarginVertical - dotsHeaderRowHeight - (ev.datetime.tm_hour + 1.0/60.0 * (ev.datetime.tm_min + ev.duration) - startTime) * dotsPerHour;
 
-  // TODO: Choose color from table here
-
   HPDF_Page_SetRGBFill(page,0.9,0.9,0.9);
+  for(unsigned i = 0; i < colorCodes.size(); ++i)
+  {
+    std::string lcTitle = ev.name;
+    std::transform(lcTitle.begin(), lcTitle.end(), lcTitle.begin(), ::tolower);
+    std::string lcKeyword = colorCodes[i].keyword;
+    std::transform(lcKeyword.begin(), lcKeyword.end(), lcKeyword.begin(), ::tolower);
+
+    if(lcTitle.find(lcKeyword) != std::string::npos)
+    {
+      HPDF_Page_SetRGBFill(page,colorCodes[i].r,colorCodes[i].g,colorCodes[i].b);
+      break;
+    }
+  }
+
   HPDF_Page_Rectangle(page,x,y,dotsDayWidth,ev.duration*dotsPerHour/60.0);
   HPDF_Page_FillStroke(page);
 
@@ -144,16 +161,20 @@ bool PDFWriter::drawEvent(HPDF_Page& page, Event ev)
   int min1 = ev.datetime.tm_min;
   int hour2 = hour1 + (int)(ev.duration / 60.0);
   int min2 = (min1 + ev.duration % 60) % 60;
-  std::string evStartTime = std::to_string(hour1) + ":" + std::to_string(min1);
-  if(min1 == 0)
+  std::string evStartTime = std::to_string(hour1) + ":";
+  if(min1 < 10)
     evStartTime += "0";
-  std::string evEndTime = std::to_string(hour2) + ":" + std::to_string(min2);
-  if(min2 == 0)
+  evStartTime += std::to_string(min1);
+
+  std::string evEndTime = std::to_string(hour2) + ":";
+  if(min2 < 10)
     evEndTime += "0";
+  evEndTime += std::to_string(min2);
+
   std::string evStr = ev.name + "\n" + evStartTime + " - " + evEndTime + "\n" + ev.room;
 
   HPDF_Page_BeginText(page);
-  HPDF_Page_SetFontAndSize(page,documentFont,9);
+  HPDF_Page_SetFontAndSize(page,documentFont,10);
   HPDF_Page_SetTextLeading(page,11);
   HPDF_Page_SetRGBFill(page,0,0,0);
   HPDF_Page_TextRect(page,x,y+ev.duration*dotsPerHour/60.0,x+dotsDayWidth,y,evStr.c_str(),HPDF_TALIGN_LEFT,NULL);

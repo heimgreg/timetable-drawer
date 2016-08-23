@@ -27,7 +27,17 @@ void TimetableDrawer::setOutputfile(std::string filename)
 
 void TimetableDrawer::setColors(std::vector<std::pair<std::string, QColor> > c)
 {
-  colors = c;
+  for(unsigned i = 0; i < c.size(); ++i)
+  {
+    ColorCode cc;
+    int r,g,b;
+    c[i].second.getRgb(&r,&g,&b);
+    cc.keyword = c[i].first;
+    cc.r = (float)r / 255.0;
+    cc.g = (float)g / 255.0;
+    cc.b = (float)b / 255.0;
+    colors.push_back(cc);
+  }
   useColors = true;
 }
 
@@ -136,6 +146,8 @@ bool TimetableDrawer::writeEventsToPDFFile()
   {
     return false;
   }
+
+  writer.setColorCodes(colors);
 
   for(unsigned i = 0; i < eventsSortedByWeek.size(); ++i)
   {
