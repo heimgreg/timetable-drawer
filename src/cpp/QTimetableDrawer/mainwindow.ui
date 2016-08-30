@@ -340,6 +340,7 @@
      <string>Hilfe</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
     <addaction name="separator"/>
     <addaction name="actionHelp"/>
    </widget>
@@ -376,7 +377,7 @@
   </action>
   <action name="actionAbout">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Über QTimetableDrawer</string>
@@ -404,6 +405,11 @@
    </property>
    <property name="text">
     <string>Stundenplan erstellen</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>Über Qt</string>
    </property>
   </action>
  </widget>

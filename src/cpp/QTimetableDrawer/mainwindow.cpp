@@ -258,3 +258,18 @@ void MainWindow::on_actionCreateTimetable_triggered()
 {
   startCreation();
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+  //QMessageBox::about(this,"Über QTimetableDrawer","Programm zur Erstellung eines ausdruckbaren Stundenplans aus einer online exportierten csv Datei\n\nCopyright (c) 2016 Gregor Heiming\n\n <a href=\"https://github.com/heimgreg/timetable-drawer\">QTimetableDrawer on GitHub</a>");
+  QMessageBox aboutBox(this);
+  aboutBox.setWindowTitle("Über QTimetableDrawer");
+  aboutBox.setTextFormat(Qt::RichText);
+  aboutBox.setText("Programm zur Erstellung eines ausdruckbaren Stundenplans aus einer online exportierten csv Datei<br><br>Copyright (c) 2016 Gregor Heiming<br><br><a href=\"https://github.com/heimgreg/timetable-drawer\">QTimetableDrawer on GitHub</a>");
+  aboutBox.exec();
+}
+
+void MainWindow::on_actionAboutQt_triggered()
+{
+  QMessageBox::aboutQt(this,"Über Qt");
+}
