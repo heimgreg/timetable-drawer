@@ -141,9 +141,15 @@ bool TimetableDrawer::writeEventsToPDFFile()
   }
 
   PDFWriter writer;
+  if(!writer.isValid())
+  {
+    errorMessage = "Konnte kein pdf Dokument erstellen.";
+    return false;
+  }
 
   if(!sortEventsByWeek())
   {
+    errorMessage = "Fehler beim Sortieren der Veranstaltungen.";
     return false;
   }
 
@@ -155,7 +161,11 @@ bool TimetableDrawer::writeEventsToPDFFile()
   }
 
   //writer.drawTimetableFromEvents(events,42);
-  writer.saveToFile(outputfile);
+  if(!writer.saveToFile(outputfile))
+  {
+    errorMessage = "Konnte keine pdf Datei schreiben.";
+    return false;
+  }
 
   return true;
 }

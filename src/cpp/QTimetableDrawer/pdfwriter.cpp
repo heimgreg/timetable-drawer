@@ -1,18 +1,24 @@
 #include "pdfwriter.h"
 #include <algorithm>
 
-PDFWriter::PDFWriter()
+void error_handler(HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data)
+{
+  printf("ERROR: error_no=%04X, detail_no=%d\n", (unsigned int) error_no, (int) detail_no);
+  throw std::exception();
+}
+
+PDFWriter::PDFWriter() : valid(false)
 {
   startTime = 8;
   endTime = 20;
 
   dotsPerInch = 72;
-  dotsPerHour = 36;
-  dotsDayWidth = 122;
+  dotsPerHour = 40;
+  dotsDayWidth = 135;
   dotsTimeColumnWidth = 50;
   dotsHeaderRowHeight = 33;
-  dotsMinPageMarginHorizontal = 50;
-  dotsMinPageMarginVertical = 50;
+  dotsMinPageMarginHorizontal = 30;
+  dotsMinPageMarginVertical = 30;
 
   dotsTimetableSizeX = dotsTimeColumnWidth + 5 * dotsDayWidth;
   dotsTimetableSizeY = dotsHeaderRowHeight + (endTime - startTime) * dotsPerHour;
@@ -24,14 +30,37 @@ PDFWriter::PDFWriter()
 
   pageSize = HPDF_PAGE_SIZE_A4;
 
-  doc = HPDF_New(NULL,NULL);
+  doc = HPDF_New(error_handler,NULL);
+  if(!doc)
+  {
+    printf("Error: Cannot create pdf object.\n");
+  }
+  else
+  {
+    valid = true;
+  }
 
-  documentFont = HPDF_GetFont(doc,"Times-Roman",NULL);
+  try
+  {
+    const char* fontName = HPDF_LoadTTFontFromFile(doc,"../../../LiberationSerif-Regular.ttf",HPDF_TRUE);
+    documentFont = HPDF_GetFont(doc,fontName,"ISO8859-2");
+    //documentFont = HPDF_GetFont(doc,"Times-Roman",NULL);
+  }
+  catch(std::exception e)
+  {
+    HPDF_Free(doc);
+    valid = false;
+  }
 }
 
 PDFWriter::~PDFWriter()
 {
   HPDF_Free(doc);
+}
+
+bool PDFWriter::isValid()
+{
+  return valid;
 }
 
 void PDFWriter::setColorCodes(std::vector<ColorCode> cc)
@@ -83,7 +112,7 @@ bool PDFWriter::drawTimetableGrid(HPDF_Page &page, int year, int weeknumber)
     if(i < 5)
     {
       HPDF_Page_BeginText(page);
-      HPDF_REAL textSize = 14;
+      HPDF_REAL textSize = 12;
       std::string headerText = weekdays[i+1];
       if(weeknumber > 0)
       {
@@ -117,7 +146,7 @@ bool PDFWriter::drawTimetableGrid(HPDF_Page &page, int year, int weeknumber)
     if(i < (endTime - startTime))
     {
       HPDF_Page_BeginText(page);
-      HPDF_REAL textSize = 11;
+      HPDF_REAL textSize = 12;
       HPDF_Page_SetFontAndSize(page,documentFont,textSize);
       std::string timeString = "";
       if(startTime + i < 10)
@@ -159,7 +188,7 @@ bool PDFWriter::drawEvent(HPDF_Page& page, Event ev)
 
   int hour1 = ev.datetime.tm_hour;
   int min1 = ev.datetime.tm_min;
-  int hour2 = hour1 + (int)(ev.duration / 60.0);
+  int hour2 = hour1 + (int)ceil(ev.duration / 60.0);
   int min2 = (min1 + ev.duration % 60) % 60;
   std::string evStartTime = std::to_string(hour1) + ":";
   if(min1 < 10)
@@ -171,11 +200,27 @@ bool PDFWriter::drawEvent(HPDF_Page& page, Event ev)
     evEndTime += "0";
   evEndTime += std::to_string(min2);
 
-  std::string evStr = ev.name + "\n" + evStartTime + " - " + evEndTime + "\n" + ev.room;
+  std::string room = ev.room.substr(0,ev.room.rfind("("));
+
+  std::string title = ev.name;
+  if(ev.duration < 60)
+  {
+    if(HPDF_Page_TextWidth(page,title.c_str()) > dotsDayWidth)
+    {
+      title = title.substr(0,title.rfind("("));
+    }
+    while(HPDF_Page_TextWidth(page,title.c_str()) > dotsDayWidth)
+    {
+      title = title.substr(0,title.rfind(" "));
+    }
+    //title = title + " ...";
+  }
+
+  std::string evStr = title + "\n" + evStartTime + " - " + evEndTime + "\n" + room;
 
   HPDF_Page_BeginText(page);
-  HPDF_Page_SetFontAndSize(page,documentFont,10);
-  HPDF_Page_SetTextLeading(page,11);
+  HPDF_Page_SetFontAndSize(page,documentFont,9);
+  HPDF_Page_SetTextLeading(page,9);
   HPDF_Page_SetRGBFill(page,0,0,0);
   HPDF_Page_TextRect(page,x,y+ev.duration*dotsPerHour/60.0,x+dotsDayWidth,y,evStr.c_str(),HPDF_TALIGN_LEFT,NULL);
   HPDF_Page_EndText(page);
@@ -209,6 +254,7 @@ bool PDFWriter::saveToFile(std::string filename)
   }
   catch(std::exception e)
   {
+    HPDF_Free(doc);
     return false;
   }
   return true;

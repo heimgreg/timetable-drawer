@@ -2,11 +2,18 @@
 #define PDFWRITER_H
 
 #include "hpdf.h"
+#include "hpdf_types.h"
 #include "event.h"
 #include <cstdio>
 #include <exception>
 #include <string>
 #include <vector>
+
+typedef void (*HPDF_Error_Handler) (HPDF_STATUS  error_no,
+                                    HPDF_STATUS  detail_no,
+                                    void        *user_data);
+
+void error_handler(HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data);
 
 class PDFWriter
 {
@@ -20,6 +27,7 @@ public:
   void setColorCodes(std::vector<ColorCode> cc);
   bool drawTimetableFromEvents(std::vector<Event> events, int year, int weeknumber);
   bool saveToFile(std::string filename);
+  bool isValid();
 
 private:
   HPDF_REAL dotsPerInch;
@@ -46,6 +54,8 @@ private:
   std::vector<ColorCode> colorCodes;
 
   std::vector<std::string> weekdays = {"Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"};
+
+  bool valid;
 
   bool drawTimetableGrid(HPDF_Page &page, int year, int weeknumber);
   bool drawEvent(HPDF_Page &page, Event ev);
