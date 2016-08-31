@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>QTimetableDrawer</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../data/icon.svg</normaloff>../../../data/icon.svg</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
@@ -89,7 +93,7 @@
           <bool>false</bool>
          </property>
          <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
+          <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>false</bool>

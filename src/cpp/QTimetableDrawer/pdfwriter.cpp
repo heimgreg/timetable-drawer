@@ -42,7 +42,7 @@ PDFWriter::PDFWriter() : valid(false)
 
   try
   {
-    const char* fontName = HPDF_LoadTTFontFromFile(doc,"../../../LiberationSerif-Regular.ttf",HPDF_TRUE);
+    const char* fontName = HPDF_LoadTTFontFromFile(doc,"../../../data/LiberationSerif-Regular.ttf",HPDF_TRUE);
     documentFont = HPDF_GetFont(doc,fontName,"ISO8859-2");
     //documentFont = HPDF_GetFont(doc,"Times-Roman",NULL);
   }
