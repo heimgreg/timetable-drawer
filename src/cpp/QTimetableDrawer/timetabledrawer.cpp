@@ -8,6 +8,7 @@
 TimetableDrawer::TimetableDrawer()
 {
   useColors = false;
+  weeklyTimetable = true;
 }
 
 TimetableDrawer::~TimetableDrawer()
@@ -39,6 +40,11 @@ void TimetableDrawer::setColors(std::vector<std::pair<std::string, QColor> > c)
     colors.push_back(cc);
   }
   useColors = true;
+}
+
+void TimetableDrawer::setWeeklyTimetable(bool weekly)
+{
+  weeklyTimetable = weekly;
 }
 
 bool TimetableDrawer::readEventsFromCSVFile()
@@ -155,9 +161,16 @@ bool TimetableDrawer::writeEventsToPDFFile()
 
   writer.setColorCodes(colors);
 
-  for(unsigned i = 0; i < eventsSortedByWeek.size(); ++i)
+  if(weeklyTimetable)
   {
-    writer.drawTimetableFromEvents(eventsSortedByWeek[i], eventsSortedByWeek[i][0].datetime.tm_year + 1900, getWeeknumberFromDatetime(eventsSortedByWeek[i][0].datetime));
+    for(unsigned i = 0; i < eventsSortedByWeek.size(); ++i)
+    {
+      writer.drawTimetableFromEvents(eventsSortedByWeek[i], eventsSortedByWeek[i][0].datetime.tm_year + 1900, getWeeknumberFromDatetime(eventsSortedByWeek[i][0].datetime));
+    }
+  }
+  else
+  {
+    writer.drawTimetableFromEvents(eventsSortedByWeek[0], eventsSortedByWeek[0][0].datetime.tm_year + 1900, 0);
   }
 
   //writer.drawTimetableFromEvents(events,42);

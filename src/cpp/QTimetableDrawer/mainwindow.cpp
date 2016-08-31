@@ -219,6 +219,7 @@ void MainWindow::startCreation()
 
   worker->setInputfile(ui->inputFileLineEdit->text().toStdString());
   worker->setOutputfile(ui->outputFileLineEdit->text().toStdString());
+  worker->setWeeklyTimetable(ui->singleWeekCheckBox->isChecked());
   if(ui->colorCheckBox->isChecked())
   {
     std::vector<std::pair<std::string,QColor> > colors;

@@ -19,6 +19,7 @@ public:
   void setInputfile(std::string filename);
   void setOutputfile(std::string filename);
   void setColors(std::vector<std::pair<std::string,QColor> > c);
+  void setWeeklyTimetable(bool weekly);
 
 signals:
   void finished();
@@ -34,6 +35,7 @@ private:
   std::vector<Event> events;
   std::vector<std::vector<Event> > eventsSortedByWeek;
   bool useColors;
+  bool weeklyTimetable;
   QString errorMessage;
 
   bool readEventsFromCSVFile();
