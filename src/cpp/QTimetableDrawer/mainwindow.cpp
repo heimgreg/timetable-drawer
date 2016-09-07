@@ -85,6 +85,7 @@ void MainWindow::on_error(QString err)
 {
   QMessageBox errDialog;
   errDialog.critical(this,"Fehler",err);
+  ui->statusBar->showMessage("Da ist wohl etwas schiefgegangen.");
 }
 
 void MainWindow::on_creationSuccessful()
@@ -242,6 +243,7 @@ void MainWindow::startCreation()
   connect(worker, SIGNAL(error(QString)), thread, SLOT(quit()));
   connect(worker, SIGNAL(error(QString)), worker, SLOT(deleteLater()));
 
+  // TODO: on_creationSuccessful may only be called if it is successful
   connect(worker, SIGNAL(finished()), this, SLOT(on_creationSuccessful()));
   connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
   connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));

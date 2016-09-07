@@ -1,5 +1,7 @@
 #include "pdfwriter.h"
 #include <algorithm>
+#include <cstdio>
+#include <QFile>
 
 void error_handler(HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data)
 {
@@ -42,13 +44,14 @@ PDFWriter::PDFWriter() : valid(false)
 
   try
   {
-    const char* fontName = HPDF_LoadTTFontFromFile(doc,"../../../data/LiberationSerif-Regular.ttf",HPDF_TRUE);
+    std::string fontFile = std::tmpnam(nullptr);
+    QFile::copy(":/fonts/LiberationSerif-Regular",QString::fromStdString(fontFile));
+    const char* fontName = HPDF_LoadTTFontFromFile(doc,fontFile.c_str(),HPDF_TRUE);
     documentFont = HPDF_GetFont(doc,fontName,"ISO8859-2");
     //documentFont = HPDF_GetFont(doc,"Times-Roman",NULL);
   }
   catch(std::exception e)
   {
-    HPDF_Free(doc);
     valid = false;
   }
 }
@@ -254,7 +257,6 @@ bool PDFWriter::saveToFile(std::string filename)
   }
   catch(std::exception e)
   {
-    HPDF_Free(doc);
     return false;
   }
   return true;

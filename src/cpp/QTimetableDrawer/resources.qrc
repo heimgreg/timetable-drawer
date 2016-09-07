@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file alias="LiberationSerif-Regular">resources/fonts/LiberationSerif-Regular.ttf</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="icon">resources/images/icon.svg</file>
+    </qresource>
+</RCC>

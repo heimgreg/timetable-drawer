@@ -27,3 +27,6 @@ FORMS    += mainwindow.ui
 CONFIG   += c++11
 
 LIBS     += -lhpdf
+
+RESOURCES += \
+    resources.qrc
