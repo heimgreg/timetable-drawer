@@ -5,6 +5,7 @@
 #include "qcolordialog.h"
 #include "qthread.h"
 #include "qmessagebox.h"
+#include "helpdialog.h"
 #include <string>
 #include <iostream>
 
@@ -276,4 +277,10 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionAboutQt_triggered()
 {
   QMessageBox::aboutQt(this,"Über Qt");
+}
+
+void MainWindow::on_actionHelp_triggered()
+{
+  HelpDialog* help = new HelpDialog(this);
+  help->exec();
 }

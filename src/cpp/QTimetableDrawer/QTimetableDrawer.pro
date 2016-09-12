@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui webkit webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,14 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     timetabledrawer.cpp \
-    pdfwriter.cpp
+    pdfwriter.cpp \
+    helpdialog.cpp
 
 HEADERS  += mainwindow.h \
     timetabledrawer.h \
     pdfwriter.h \
-    event.h
+    event.h \
+    helpdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    helpdialog.ui
 
 CONFIG   += c++11
 

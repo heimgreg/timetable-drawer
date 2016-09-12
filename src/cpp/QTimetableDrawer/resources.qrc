@@ -5,4 +5,7 @@
     <qresource prefix="/images">
         <file alias="icon">resources/images/icon.svg</file>
     </qresource>
+    <qresource prefix="/help">
+        <file alias="help.html">resources/help/help.html</file>
+    </qresource>
 </RCC>
